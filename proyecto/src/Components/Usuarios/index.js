@@ -40,12 +40,13 @@ class Usuarios extends Component {
             <td><Link to={`/verUsuario/${usuario.id}`}><Button icon="visibility"/></Link></td>
             <td><Link to={`/editarUsuario/${usuario.id}`}><Button icon="edit"/></Link></td>
             <td>
-              <Modal header="Eliminar usuario">
+              <Modal header="Eliminar usuario"
                 actions={
-                <div>
-                  <Button className="red modal-close">Sí</Button>&nbsp;
-                  <Button className="green modal-close">No</Button>
-                </div>}
+                  <div>
+                    <Button className="red modal-close">Sí</Button>
+                    <Button className="green modal-close">No</Button>
+                  </div>
+                }
                 trigger={<Button icon="delete_forever"/>}>
                 <p>¿Desea eliminar a {usuario.nombre}?</p>
               </Modal>
