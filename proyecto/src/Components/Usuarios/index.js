@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table ,Preloader, Button, Icon } from 'react-materialize';
+import { Agregar } from './AgregarUsuarios';
+
 
 class Usuarios extends Component {
 	render() {
@@ -9,7 +11,9 @@ class Usuarios extends Component {
 			<div>
 				<div className='valign-wrapper'  >
 					<h1>Usuarios</h1>
-					<Button floating large className='red' waves='light' icon='add' />
+					<Link to='/AgregarUsuarios'>
+						<Button floating large className='red' waves='light' icon='add' />
+					</Link>
 				</div>
 				<Table>
 				  <thead>

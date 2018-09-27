@@ -10,14 +10,31 @@ class Agregar extends Component {
 		this.props.AgregarUsuarios(event.target.value);
 	};
 
+	agregarNombre = (event) => {
+		this.props.AgregarNombre(event.target.value);
+	};
+
+	agregarApellidoPaterno = (event) => {
+		this.props.AgregarApellidoPAterno(event.target.value);
+	};
+
+	agregarApellidoMaterno = (event) => {
+		this.props.AgregarApellidoMaterno(event.target.value);
+	};
+
+	agregarEdad = (event) => {
+		this.props.AgregarEdad(event.target.value)
+	};
+
+
 	render() {
 		return (
 			<div>
 				<div className="row">
-					<Input s={12} m={6} label="Nombre Completo" type='text' onChange={this.agregarUsuarios} />
-					<Input s={12} m={6} label="Username" type='text' />
-					<Input s={12} m={6} label="Correo" type='email' />
-					<Input s={12} m={6} label="Teléfono" type='number' />
+					<Input s={12} m={6} label="Nombre" type='text' onChange={this.agregarNombre} />
+					<Input s={12} m={6} label="Apellido Paterno" type='text' onChange={this.AgregarApellidoPAterno} />
+					<Input s={12} m={6} label="Apellido Materno" type='text' onChange={this.AgregarApellidoMaterno} />
+					<Input s={12} m={6} label="Edad" type='text' onChange={this.AgregarEdad} />
 				</div>
 				<div className="row">
 					<div className="col s6 offset-s3 m4 offset-m4">
