@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Header from './Header';
 import Usuarios from './Usuarios';
+import UsuariosAgregar from './Usuarios/AgregarUsuarios';
 import '../App.css';
 
 class App extends Component {

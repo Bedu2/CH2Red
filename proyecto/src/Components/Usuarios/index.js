@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Table, Icon, Button } from 'react-materialize';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Table ,Preloader, Button, Icon } from 'react-materialize';
 
 class Usuarios extends Component {
 	render() {
