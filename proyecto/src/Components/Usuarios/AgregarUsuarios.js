@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input, Button } from 'react-materialize';
-import usuariosActions from '../../Actions/usuariosAction';
+import * as UsuariosAction from '../../Actions/usuariosAction';
 
 
 class Agregar extends Component {
 
 	agregarUsuarios = (event) => {
-		this.props.agregarUsuarios(event.target.value);
+		this.props.AgregarUsuarios(event.target.value);
 	};
 
 	render() {
@@ -35,4 +35,4 @@ const mapStateToProps = ({ usuariosReducer }) => {
 	return usuariosReducer;
 }
 
-export default connect(mapStateToProps, usuariosActions)(Agregar);
+export default connect(mapStateToProps, UsuariosAction)(Agregar);
