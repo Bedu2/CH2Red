@@ -6,27 +6,27 @@ import { CAMBIO_NOMBRE,
 	ERROR_USUARIOS, 
 } from '../Types/usuariosTypes';
 
-export const AgregarNombre = (nombre) => (dispatch) =>
+export const agregarNombre = (nombre) => (dispatch) =>
 {
 	dispatch({ type: CAMBIO_NOMBRE, payload: nombre });
 };
 
-export const AgregarApellidoPAterno = (apellidoPaterno) => (dispatch) =>
+export const agregarApellidoPAterno = (apellidoPaterno) => (dispatch) =>
 {
 	dispatch({ type: CAMBIO_APELLIDO_PATERNO, payload: apellidoPaterno });
 };
 
-export const AgregarApellidoMaterno = (apellidoMaterno) => (dispatch) =>
+export const agregarApellidoMaterno = (apellidoMaterno) => (dispatch) =>
 {
 	dispatch({ type: CAMBIO_APELLIDO_MATERNO, payload: apellidoMaterno });
 };
 
-export const AgregarEdad = (edad) => (dispatch) =>
+export const agregarEdad = (edad) => (dispatch) =>
 {
 	dispatch({ type: CAMBIO_EDAD, payload: edad });
 };
 
-export const EnviarError = (error) => (dispatch) =>
+export const enviarError = (error) => (dispatch) =>
 {
 	dispatch({ type: ERROR_USUARIOS, payload: error });
 };
