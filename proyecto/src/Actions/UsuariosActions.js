@@ -13,3 +13,14 @@ export const cargarUsuarios = () => async (dispatch) => {
     dispatch({ type: ERROR, payload: err })
   }
 };
+
+export const eliminarUsuario = (id) => async (dispatch) => {
+  dispatch({ type: INICIANDO });
+  try {
+    const response = await axios.delete(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
+
+  }
+  catch (err) {
+    dispatch({ type: ERROR, payload: err })
+  }
+};
