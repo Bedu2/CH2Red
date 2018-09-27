@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Input, Button } from 'react-materialize';
 import * as UsuariosAction from '../../Actions/usuariosAction';
 
 
 class Agregar extends Component {
+	componentDidMount() {
+	  console.log(this.props.match.path);
+	  if (this.props.match.path.indexOf('VerUsuario') >= 0) {
+      this.props.habilitarFormulario(false);
+    } else {
+      this.props.habilitarFormulario(true);
+    }
+  }
 
 	agregarUsuarios = (event) => {
 		this.props.agregarUsuarios(event.target.value);
@@ -15,7 +24,9 @@ class Agregar extends Component {
 	};
 
 	agregarApellidoPaterno = (event) => {
-		this.props.agregarApellidoPAterno(event.target.value);
+
+		this.props.agregarApellidoPaterno(event.target.value);
+
 	};
 
 	agregarApellidoMaterno = (event) => {
@@ -23,22 +34,49 @@ class Agregar extends Component {
 	};
 
 	agregarEdad = (event) => {
-		this.props.enviarEdad(event.target.value)
+
+		this.props.agregarEdad(event.target.value)
+
 	};
 
+	mostrarBotonEditar = () => (
+	  <Link to='/AgregarUsuario/'>
+	  <Button style={{width: '100%'}} waves='light'>
+      Editar
+    </Button>
+    </Link>
+  );
+
+	mostrarBotonGuardar = () => (
+	  <Button style={{width: '100%'}} waves='light'
+            disabled={!this.props.datosCompletos}
+            onClick={() => console.log(this.props)}>
+    Guardar
+    </Button>
+  );
 
 	render() {
 		return (
 			<div>
 				<div className="row">
-					<Input s={12} m={6} label="Nombre" type='text' onChange={this.agregarNombre} />
-					<Input s={12} m={6} label="Apellido Paterno" type='text' onChange={this.agregarApellidoPaterno} />
-					<Input s={12} m={6} label="Apellido Materno" type='text' onChange={this.agregarApellidoMaterno} />
-					<Input s={12} m={6} label="Edad" type='text' onChange={this.agregarEdad} />
+
+					<Input s={12} m={6} label="Nombre" type='text' validate
+                 disabled={this.props.soloLectura}
+                 onChange={this.agregarNombre} />
+					<Input s={12} m={6} label="Apellido Paterno" type='text' validate
+                 disabled={this.props.soloLectura}
+                 onChange={this.agregarApellidoPaterno} />
+					<Input s={12} m={6} label="Apellido Materno" type='text' validate
+                 disabled={this.props.soloLectura}
+                 onChange={this.agregarApellidoMaterno} />
+					<Input s={12} m={6} label="Edad" type='number' min='18' max='100' validate
+                 disabled={this.props.soloLectura}
+                 onChange={this.agregarEdad} />
+
 				</div>
 				<div className="row">
 					<div className="col s6 offset-s3 m4 offset-m4">
-						<Button style={{width: '100%'}} waves='light'>Guardar</Button>
+            { this.props.soloLectura ? this.mostrarBotonEditar() : this.mostrarBotonGuardar() }
 					</div>
 				</div>
 			</div>
@@ -46,10 +84,8 @@ class Agregar extends Component {
 	}
 }
 
-const mapStateToProps = ({ usuariosReducer }) => {
-
-
-	return usuariosReducer;
+const mapStateToProps = ({ UsuariosReducer }) => {
+	return UsuariosReducer;
 }
 
 export default connect(mapStateToProps, UsuariosAction)(Agregar);

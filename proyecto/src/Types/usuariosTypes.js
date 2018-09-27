@@ -7,3 +7,5 @@ export const ERROR_USUARIOS= 'error';
 export const EMPEZAR_USUARIOS= 'iniciando';
 export const CARGANDO_USURIOS= 'usuariosCargados';
 export const CONSULTA_USUARIOS= 'consultaUsuarios';
+export const USUARIO_SOLO_LECTURA = 'usuarioSoloLectura';
+export const USUARIO_DATOS_COMPLETOS = 'usuarioDatosCompletos';
