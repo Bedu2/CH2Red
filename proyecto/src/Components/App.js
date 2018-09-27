@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Header from './Header';
 import Usuarios from './Usuarios';
 import '../App.css';
 
-class App extends Component {
-  render() {
-    return (
+const App = () => (
       <div>
       	<BrowserRouter>
       		<div>
@@ -21,7 +19,5 @@ class App extends Component {
         </BrowserRouter>
       </div>
     );
-  }
-}
 
 export default App;
