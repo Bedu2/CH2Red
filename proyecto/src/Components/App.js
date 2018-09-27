@@ -16,6 +16,8 @@ class App extends Component {
       			<br/>
       			<div className='container' >
       				<Route exact path='/' component= {Usuarios} />
+      				<Route exact path='/AgregarUsuario' component= {UsuariosAgregar} />
+      				<Route exact path='/VerUsuarios/:id' component= {UsuariosAgregar} />
       			</div>
       		</div>
 

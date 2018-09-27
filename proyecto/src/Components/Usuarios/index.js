@@ -30,7 +30,7 @@ class Usuarios extends Component {
 				      <td>Ramos</td>
 				      <td>Gomez</td>
 				      <td>54</td>
-				      <td><Icon>visibility</Icon></td>
+              <td><Link to='/VerUsuarios/123'><Icon>visibility</Icon></Link></td>
 				      <td><Icon>edit</Icon></td>
 				      <td><Icon>delete_forever</Icon></td>
 				    </tr>
