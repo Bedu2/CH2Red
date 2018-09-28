@@ -1,14 +1,15 @@
-import {
-  CAMBIO_NOMBRE,
-  CAMBIO_APELLIDO_PATERNO,
-  CAMBIO_APELLIDO_MATERNO,
-  CAMBIO_EDAD,
-  ERROR_USUARIOS,
-  EMPEZAR_USUARIOS,
-  CARGANDO_USUARIOS,
-  CONSULTA_USUARIOS,
-  USUARIO_SOLO_LECTURA, USUARIOS_CARGADOS
-} from '../Types/UsuariosTypes';
+import { CAMBIO_NOMBRE,
+	CAMBIO_APELLIDO_PATERNO, 
+	CAMBIO_APELLIDO_MATERNO, 
+	CAMBIO_EDAD, 
+	ERROR_USUARIOS, 
+	EMPEZAR_USUARIOS, 
+	CARGANDO_USURIOS, 
+	CONSULTA_USUARIOS,
+	USUARIO_SOLO_LECTURA, 
+	USUARIO_DATOS_COMPLETOS,
+	LIMPIAR_FORMULARIO
+} from '../Types/usuariosTypes';
 
 const INITIAL_STATE = {
 	usuarios: [],
@@ -35,6 +36,13 @@ export default (state= INITIAL_STATE, action) => {
 		case USUARIOS_CARGADOS: return { ...state, cargando: false, usuarios: action.payload};
 		case CONSULTA_USUARIOS: return { ...state, consultaUsuarios: true };
 		case USUARIO_SOLO_LECTURA: return { ...state, soloLectura: action.payload };
+		case LIMPIAR_FORMULARIO: return {
+			...state, 
+			nombre:'',
+			apellidoPaterno: '',
+			apellidoMaterno: '',
+			edad: NaN,
+			};
 		default: return state;
 	}
 }
