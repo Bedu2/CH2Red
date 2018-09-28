@@ -8,5 +8,4 @@ export const CARGANDO_USUARIOS = 'iniciando';
 export const USUARIOS_CARGADOS = 'usuariosCargados';
 export const CONSULTA_USUARIOS = 'consultaUsuarios';
 export const USUARIO_SOLO_LECTURA = 'usuarioSoloLectura';
-export const USUARIO_DATOS_COMPLETOS = 'usuarioDatosCompletos';
 export const LIMPIAR_FORMULARIO = 'LimpiarFormulario';
