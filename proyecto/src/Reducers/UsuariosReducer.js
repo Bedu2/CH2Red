@@ -1,15 +1,15 @@
-import { CAMBIO_NOMBRE, 
+import { CAMBIO_NOMBRE,
 	CAMBIO_APELLIDO_PATERNO, 
 	CAMBIO_APELLIDO_MATERNO, 
 	CAMBIO_EDAD, 
 	ERROR_USUARIOS, 
 	EMPEZAR_USUARIOS, 
-	CARGANDO_USURIOS, 
+	CARGANDO_USUARIOS,
+	USUARIOS_CARGADOS,
 	CONSULTA_USUARIOS,
 	USUARIO_SOLO_LECTURA, 
-	USUARIO_DATOS_COMPLETOS,
 	LIMPIAR_FORMULARIO
-} from '../Types/usuariosTypes';
+} from '../Types/UsuariosTypes';
 
 const INITIAL_STATE = {
 	usuarios: [],
@@ -20,10 +20,9 @@ const INITIAL_STATE = {
 	apellidoMaterno: '',
 	edad: '',
 	idUsuario: '',
-	consultaUsuarios: false,
 	soloLectura: false,
 	datosCompletos: false
-}
+};
 
 export default (state= INITIAL_STATE, action) => {
 	switch (action.type){
@@ -33,10 +32,11 @@ export default (state= INITIAL_STATE, action) => {
 		case CAMBIO_EDAD: return { ...state, edad: parseInt(action.payload, 10) };
 		case ERROR_USUARIOS: return { ...state, error: action.payload};
 		case EMPEZAR_USUARIOS: return { ...state, cargando: true};
-		case CARGANDO_USURIOS: return { ...state, cargando: false, usuarios: action.payload};
+		case CARGANDO_USUARIOS: return { ...state, cargando: true};
+		case USUARIOS_CARGADOS: return { ...state, cargando: false, usuarios: action.payload};
 		case CONSULTA_USUARIOS: return { ...state, consultaUsuarios: true };
 		case USUARIO_SOLO_LECTURA: return { ...state, soloLectura: action.payload };
-		case LIMPIAR_FORMULARIO: return { 
+		case LIMPIAR_FORMULARIO: return {
 			...state, 
 			nombre:'',
 			apellidoPaterno: '',

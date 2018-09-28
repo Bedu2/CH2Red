@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Input, Button } from 'react-materialize';
-import * as UsuariosAction from '../../Actions/usuariosAction';
+import * as UsuariosAction from '../../Actions/UsuariosActions';
 
 
 class Agregar extends Component {
