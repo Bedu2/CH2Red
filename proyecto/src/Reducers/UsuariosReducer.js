@@ -18,7 +18,7 @@ const INITIAL_STATE = {
 	nombre:'',
 	apellidoPaterno: '',
 	apellidoMaterno: '',
-	edad: NaN,
+	edad: '',
 	idUsuario: '',
 	consultaUsuarios: false,
 	soloLectura: false,

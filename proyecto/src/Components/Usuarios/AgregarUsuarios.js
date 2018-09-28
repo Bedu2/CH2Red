@@ -57,8 +57,7 @@ class Agregar extends Component {
     </Button>
   );
 
-	validarState = () => (
-		(this.props.nombre.length && this.props.apellidoPaterno.length && this.props.apellidoMaterno.length) > 0 && !isNaN(this.props.edad));
+	validarState = () => (this.props.nombre.length && this.props.apellidoPaterno.length && this.props.apellidoMaterno.length && this.props.edad);
 
 
 	render() {
@@ -76,7 +75,7 @@ class Agregar extends Component {
 					<Input s={12} m={6} label="Apellido Materno" type='text' validate
                  disabled={this.props.soloLectura}
                  onChange={this.agregarApellidoMaterno} value={ this.props.apellidoMaterno } />
-					<Input s={12} m={6} label="Edad" type='number' min='18' max='100' validate
+					<Input s={12} m={6} label="Edad" type='number' min='1' max='100' validate
                  disabled={this.props.soloLectura}
                  onChange={this.agregarEdad} value={ this.props.edad } />
 
