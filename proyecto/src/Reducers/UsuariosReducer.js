@@ -1,4 +1,4 @@
-import { CAMBIO_NOMBRE, 
+import { CAMBIO_NOMBRE,
 	CAMBIO_APELLIDO_PATERNO, 
 	CAMBIO_APELLIDO_MATERNO, 
 	CAMBIO_EDAD, 
@@ -18,10 +18,9 @@ const INITIAL_STATE = {
 	apellidoMaterno: '',
 	edad: NaN,
 	idUsuario: '',
-	consultaUsuarios: false,
 	soloLectura: false,
 	datosCompletos: false
-}
+};
 
 export default (state= INITIAL_STATE, action) => {
 	switch (action.type){
