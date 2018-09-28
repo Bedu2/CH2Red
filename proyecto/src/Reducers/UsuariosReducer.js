@@ -1,13 +1,14 @@
-import { CAMBIO_NOMBRE,
-	CAMBIO_APELLIDO_PATERNO, 
-	CAMBIO_APELLIDO_MATERNO, 
-	CAMBIO_EDAD, 
-	ERROR_USUARIOS, 
-	EMPEZAR_USUARIOS, 
-	CARGANDO_USURIOS, 
-	CONSULTA_USUARIOS,
-	USUARIO_SOLO_LECTURA, USUARIO_DATOS_COMPLETOS
-} from '../Types/usuariosTypes';
+import {
+  CAMBIO_NOMBRE,
+  CAMBIO_APELLIDO_PATERNO,
+  CAMBIO_APELLIDO_MATERNO,
+  CAMBIO_EDAD,
+  ERROR_USUARIOS,
+  EMPEZAR_USUARIOS,
+  CARGANDO_USUARIOS,
+  CONSULTA_USUARIOS,
+  USUARIO_SOLO_LECTURA, USUARIOS_CARGADOS
+} from '../Types/UsuariosTypes';
 
 const INITIAL_STATE = {
 	usuarios: [],
@@ -30,15 +31,10 @@ export default (state= INITIAL_STATE, action) => {
 		case CAMBIO_EDAD: return { ...state, edad: parseInt(action.payload, 10) };
 		case ERROR_USUARIOS: return { ...state, error: action.payload};
 		case EMPEZAR_USUARIOS: return { ...state, cargando: true};
-		case CARGANDO_USURIOS: return { ...state, cargando: false, usuarios: action.payload};
+		case CARGANDO_USUARIOS: return { ...state, cargando: true};
+		case USUARIOS_CARGADOS: return { ...state, cargando: false, usuarios: action.payload};
 		case CONSULTA_USUARIOS: return { ...state, consultaUsuarios: true };
 		case USUARIO_SOLO_LECTURA: return { ...state, soloLectura: action.payload };
-		case USUARIO_DATOS_COMPLETOS: return {
-			...state,
-			datosCompletos:
-				state.nombre && state.apellidoMaterno &&
-				state.apellidoMaterno && !isNaN(state.edad)
-		};
 		default: return state;
 	}
 }
