@@ -4,8 +4,11 @@ import {
   CAMBIO_APELLIDO_PATERNO,
   CAMBIO_APELLIDO_MATERNO,
   CAMBIO_EDAD,
-  ERROR_USUARIOS, USUARIO_SOLO_LECTURA,
-	USUARIO_DATOS_COMPLETOS
+  ERROR_USUARIOS, 
+  USUARIO_SOLO_LECTURA,
+  USUARIO_DATOS_COMPLETOS,
+  LIMPIAR_FORMULARIO
+
 } from '../Types/usuariosTypes';
 
 export const agregarNombre = (nombre) => (dispatch) =>
@@ -19,19 +22,19 @@ export const agregarApellidoPaterno = (apellidoPaterno) => (dispatch) =>
 
 {
 	dispatch({ type: CAMBIO_APELLIDO_PATERNO, payload: apellidoPaterno });
-  dispatch({ type: USUARIO_DATOS_COMPLETOS });
+  	dispatch({ type: USUARIO_DATOS_COMPLETOS });
 };
 
 export const agregarApellidoMaterno = (apellidoMaterno) => (dispatch) =>
 {
 	dispatch({ type: CAMBIO_APELLIDO_MATERNO, payload: apellidoMaterno });
-  dispatch({ type: USUARIO_DATOS_COMPLETOS });
+  	dispatch({ type: USUARIO_DATOS_COMPLETOS });
 };
 
 export const agregarEdad = (edad) => (dispatch) =>
 {
 	dispatch({ type: CAMBIO_EDAD, payload: edad });
-  dispatch({ type: USUARIO_DATOS_COMPLETOS });
+  	dispatch({ type: USUARIO_DATOS_COMPLETOS });
 };
 
 export const enviarError = (error) => (dispatch) =>
@@ -41,4 +44,8 @@ export const enviarError = (error) => (dispatch) =>
 
 export const habilitarFormulario = (habilitar) => (dispatch) => {
 	dispatch({ type: USUARIO_SOLO_LECTURA, payload: !habilitar });
+};
+
+export const reiniciarFormulario = () => ( dispatch ) => {
+	dispatch({ type: LIMPIAR_FORMULARIO })
 };

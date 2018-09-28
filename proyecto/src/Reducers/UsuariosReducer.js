@@ -6,7 +6,9 @@ import { CAMBIO_NOMBRE,
 	EMPEZAR_USUARIOS, 
 	CARGANDO_USURIOS, 
 	CONSULTA_USUARIOS,
-	USUARIO_SOLO_LECTURA, USUARIO_DATOS_COMPLETOS
+	USUARIO_SOLO_LECTURA, 
+	USUARIO_DATOS_COMPLETOS,
+	LIMPIAR_FORMULARIO
 } from '../Types/usuariosTypes';
 
 const INITIAL_STATE = {
@@ -34,12 +36,13 @@ export default (state= INITIAL_STATE, action) => {
 		case CARGANDO_USURIOS: return { ...state, cargando: false, usuarios: action.payload};
 		case CONSULTA_USUARIOS: return { ...state, consultaUsuarios: true };
 		case USUARIO_SOLO_LECTURA: return { ...state, soloLectura: action.payload };
-		case USUARIO_DATOS_COMPLETOS: return {
-			...state,
-			datosCompletos:
-				state.nombre && state.apellidoMaterno &&
-				state.apellidoMaterno && !isNaN(state.edad)
-		};
+		case LIMPIAR_FORMULARIO: return { 
+			...state, 
+			nombre:'',
+			apellidoPaterno: '',
+			apellidoMaterno: '',
+			edad: NaN,
+			};
 		default: return state;
 	}
 }
