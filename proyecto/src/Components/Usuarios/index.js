@@ -21,6 +21,7 @@ class Usuarios extends Component {
 
   mostrarMensajeNoUsuarios = () => (
       <div className="center-align">
+        <Icon large className="grey-text text-lighten-2">person_outline</Icon>
         <h4>No hay usuarios.</h4>
         <p>Puede <Link to="/agregarUsuario">crear un usuario</Link> ahora mismo.</p>
       </div>
