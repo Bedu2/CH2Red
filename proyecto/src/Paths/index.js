@@ -1,5 +1,5 @@
 export const RUTA_VER_USUARIO = '/verUsuario/';
-export const RUTA_AGREGAR_USUARIO = '/agregarUsuario';
+export const RUTA_AGREGAR_USUARIO = '/agregarUsuario/';
 export const RUTA_EDITAR_USUARIO = '/editarUsuario/';
 export const RUTA_ELIMINAR_USUARIO = '/eliminarUsuario/';
 
