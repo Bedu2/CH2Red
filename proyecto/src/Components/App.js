@@ -4,6 +4,7 @@ import Header from './Header';
 import Usuarios from './Usuarios';
 import UsuariosAgregar from './Usuarios/AgregarUsuarios';
 import '../App.css';
+import * as Rutas from '../Paths';
 
 const App = () => (
       <div>
@@ -14,8 +15,8 @@ const App = () => (
       			<br/>
       			<div className='container' >
       				<Route exact path='/' component= {Usuarios} />
-      				<Route exact path='/AgregarUsuarios' component= {UsuariosAgregar} />
-      				<Route exact path='/VerUsuarios/:id' component= {UsuariosAgregar} />
+      				<Route exact path={Rutas.RUTA_AGREGAR_USUARIO} component= {UsuariosAgregar} />
+      				<Route exact path={`${Rutas.RUTA_EDITAR_USUARIO}:id`} component= {UsuariosAgregar} />
 
       			</div>
       		</div>

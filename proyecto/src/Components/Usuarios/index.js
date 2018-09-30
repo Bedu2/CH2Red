@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Table, Icon, Button, Preloader, Modal } from 'react-materialize';
 import * as UsuariosActions from '../../Actions/UsuariosActions';
+import * as Rutas from '../../Paths';
 
 class Usuarios extends Component {
   componentDidMount() {
+    console.log(this.props);
     if (!this.props.consultaUsuarios) {
       this.props.cargarUsuarios();
     }
@@ -23,7 +25,7 @@ class Usuarios extends Component {
       <div className="center-align">
         <Icon large className="grey-text text-lighten-2">person_outline</Icon>
         <h4>No hay usuarios.</h4>
-        <p>Puede <Link to="/agregarUsuarios">crear un usuario</Link> ahora mismo.</p>
+        <p>Puede <Link to={Rutas.RUTA_AGREGAR_USUARIO}>crear un usuario</Link> ahora mismo.</p>
       </div>
     );
 
@@ -40,27 +42,27 @@ class Usuarios extends Component {
       </thead>
       <tbody>
       { this.props.usuarios.map((usuario) => (
-          <tr>
+          <tr key={usuario._id}>
             <td className="hide-on-med-and-up">{this.obtenerNombreCompleto(usuario)}</td>
             <td className="hide-on-small-only">{usuario.nombre}</td>
             <td className="hide-on-small-only">{usuario.apellidos.paterno}</td>
             <td className="hide-on-small-only">{usuario.apellidos.materno}</td>
             <td className="hide-on-small-only">{usuario.edad}</td>
-            <td><Link to={`/verUsuario/${usuario.id}`}><Button icon="visibility"/></Link></td>
-            <td><Link to={`/editarUsuario/${usuario.id}`}><Button icon="edit"/></Link></td>
+            <td><Link to={`${Rutas.RUTA_LISTA_DEPENDIENTES}${usuario._id}`}><Icon>visibility</Icon></Link></td>
+            <td><Link to={`${Rutas.RUTA_EDITAR_USUARIO}${usuario._id}`}><Icon>edit</Icon></Link></td>
             <td>
               <Modal header="Eliminar usuario"
-                actions={
-                  <div>
-                    <Button className="red modal-close" onClick={() => alert(":(")}>Sí</Button>
-                    <Button className="green modal-close">No</Button>
-                  </div>
-                }
-                trigger={<Button icon="delete_forever"/>}>
+                     actions={
+                      <div>
+                        <Button className="red modal-close" onClick={
+                          () => this.props.eliminarUsuario(usuario._id)
+                        }>Sí</Button>
+                        <Button className="green modal-close">No</Button>
+                      </div> }
+                     trigger={<Link to="\"><Icon>delete_forever</Icon></Link>}>
                 <p>¿Desea eliminar a {usuario.nombre}?</p>
               </Modal>
             </td>
-            <td><Link to={`/eliminarUsuario/${usuario.id}`}><Button icon="delete_forever"/></Link></td>
           </tr> ))
       }
       </tbody>
@@ -75,7 +77,7 @@ class Usuarios extends Component {
       <div>
         <div className='valign-wrapper'  >
           <h1>Usuarios</h1>
-          <Link to="/agregarUsuario">
+          <Link to={Rutas.RUTA_AGREGAR_USUARIO}>
             <Button floating large className='red' waves='light' icon='add' />
           </Link>
         </div>
