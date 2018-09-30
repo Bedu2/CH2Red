@@ -5,7 +5,7 @@ import { Button, Preloader } from 'react-materialize';
 import * as UsuariosAction from '../../Actions/UsuariosActions';
 import CamposUsuario from './CamposUsuario';
 
-class Agregar extends Component {
+class AgregarEditar extends Component {
 	componentDidMount() {
 	  console.log(this.props.match);
 	  if (this.props.match.params.id){
@@ -32,19 +32,11 @@ class Agregar extends Component {
 		</div>
 	);
 
-	mostrarBotonEditar = () => (
-	  <Link to='/AgregarUsuario/'>
-			<Button style={{width: '100%'}} waves='light'>
-				Editar
-			</Button>
-    </Link>
-  );
-
 	mostrarBotonGuardar = () => (
     <div className="row">
       <div className="col s6 offset-s3 m4 offset-m4">
 				<Button style={{width: '100%'}} waves='light'
-								disabled= { !this.props.validarFormulario }
+								disabled= { !this.validarFormulario() }
 								onClick={ this.clickGuardar }>
 					Guardar
 				</Button>
@@ -52,7 +44,15 @@ class Agregar extends Component {
     </div>
   );
 
-	clickGuardar = event => {
+  validarFormulario = () => (
+    this.props.nombre && this.props.apellidoPaterno && this.props.apellidoMaterno && this.props.edad
+	);
+
+	clickGuardar = () => {
+		const edad = this.props.edad;
+		if (edad < 12 || edad > 150) {
+			return;
+		}
 		const datosUsuario = this.crearNuevoUsuario();
 		const idUsuario = this.props.match.params.id;
 		idUsuario ? this.props.modificarUsuario(idUsuario, datosUsuario) : this.props.agregarUsuario(datosUsuario);
@@ -63,7 +63,7 @@ class Agregar extends Component {
 		return (
 			<div>
 				<CamposUsuario/>
-						{ this.props.cargando ? this.mostrarPreloader() : this.mostrarBotonGuardar() }
+				{ this.props.cargando ? this.mostrarPreloader() : this.mostrarBotonGuardar() }
 			</div>
 		);
 	}
@@ -73,4 +73,4 @@ const mapStateToProps = ({ UsuariosReducer }) => {
 	return UsuariosReducer;
 }
 
-export default connect(mapStateToProps, UsuariosAction)(Agregar);
+export default connect(mapStateToProps, UsuariosAction)(AgregarEditar);

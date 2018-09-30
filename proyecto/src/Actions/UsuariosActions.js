@@ -55,8 +55,8 @@ export const obtenerUsuario = (id) => async (dispatch) => {
 export const modificarUsuario = (id, usuarioActualizado) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
-    await axios.post(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`, usuarioActualizado);
-    dispatch({ type: USUARIO_MODIFICADO });
+    const response = await axios.post(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`, usuarioActualizado);
+    dispatch({ type: USUARIO_MODIFICADO, payload: response.data });
     window.Materialize.toast('Usuario modificado.', TIEMPO_TOAST);
   }
   catch (err) {
@@ -98,7 +98,3 @@ export const enviarError = (error) => (dispatch) => {
 export const habilitarFormulario = (habilitar) => (dispatch) => {
   dispatch({ type: FORMULARIO_SOLO_LECTURA, payload: !habilitar });
 };
-
-export const validarFormulario = () => (
-  this.props.nombre && this.props.apellidoPaterno && this.props.apellidoMaterno && this.props.edad
-);

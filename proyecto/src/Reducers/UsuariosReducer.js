@@ -59,7 +59,12 @@ export default (state= INITIAL_STATE, action) => {
 			apellidoMaterno: action.payload.apellidos.materno,
 			edad: action.payload.edad
 		};
-		case USUARIO_MODIFICADO: return { ...state, cargando: false };
+		case USUARIO_MODIFICADO:
+			const idModificado = state.usuarios.findIndex((usuario) => {
+				return usuario._id === action.payload._id
+			});
+			state.usuarios.splice(idModificado, 1, action.payload);
+			return { ...state, cargando: false };
 		case USUARIO_ELIMINADO: return { ...state, consultaUsuarios: false };
 		default: return state;
 	}
