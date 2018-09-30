@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  CARGANDO_USUARIOS,
+  INICIANDO_PROCESO_USUARIOS,
   USUARIOS_CARGADOS,
   USUARIO_CREADO,
   USUARIO_MODIFICADO,
@@ -10,11 +10,13 @@ import {
   CAMBIO_APELLIDO_PATERNO,
   CAMBIO_APELLIDO_MATERNO,
   CAMBIO_EDAD,
-  FORMULARIO_SOLO_LECTURA, LIMPIAR_FORMULARIO
+  FORMULARIO_SOLO_LECTURA, LIMPIAR_FORMULARIO, USUARIO_CARGADO
 } from "../Types/UsuariosTypes";
 
+const TIEMPO_TOAST = 4000;
+
 export const cargarUsuarios = () => async (dispatch) => {
-  dispatch({ type: CARGANDO_USUARIOS });
+  dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
     const response = await axios.get('https://g2-ch2.herokuapp.com/api/usuarios/red');
     response.data.reverse();
@@ -26,27 +28,47 @@ export const cargarUsuarios = () => async (dispatch) => {
 };
 
 export const agregarUsuario = (nuevoUsuario) => async (dispatch) => {
-  dispatch({ type: CARGANDO_USUARIOS });
+  dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
     const response = await axios.post('https://g2-ch2.herokuapp.com/api/usuarios/red', nuevoUsuario);
-    dispatch({ type: USUARIO_CREADO, payload: {
-        usuario: response.data,
-      } });
+    dispatch({ type: USUARIO_CREADO, payload: response.data });
     dispatch({ type: LIMPIAR_FORMULARIO });
+    window.Materialize.toast('Usuario agregado.', TIEMPO_TOAST);
   }
   catch (err) {
-    console.log(err);
     dispatch({ type: ERROR_USUARIOS, payload: err});
   }
 };
 
-export const modificarUsuario = () => {};
+export const obtenerUsuario = (id) => async (dispatch) => {
+  dispatch({ type: INICIANDO_PROCESO_USUARIOS });
+  try {
+    const response = await axios.get(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
+    console.log(response.data);
+    dispatch({ type: USUARIO_CARGADO, payload: response.data[0] })
+  }
+  catch (err) {
+    dispatch({ type: ERROR_USUARIOS, payload: err});
+  }
+};
+
+export const modificarUsuario = (id, usuarioActualizado) => async (dispatch) => {
+  dispatch({ type: INICIANDO_PROCESO_USUARIOS });
+  try {
+    await axios.post(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`, usuarioActualizado);
+    dispatch({ type: USUARIO_MODIFICADO });
+    window.Materialize.toast('Usuario modificado.', TIEMPO_TOAST);
+  }
+  catch (err) {
+    dispatch({ type: ERROR_USUARIOS, payload: err});
+  }
+};
 
 export const eliminarUsuario = (id) => async (dispatch) => {
-  dispatch({ type: CARGANDO_USUARIOS });
+  dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
     await axios.delete(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
-
+    dispatch({ type: USUARIO_ELIMINADO })
   }
   catch (err) {
     dispatch({ type: ERROR_USUARIOS, payload: err })
@@ -66,7 +88,7 @@ export const cambiarApellidoMaterno = (apellidoMaterno) => (dispatch) => {
 };
 
 export const cambiarEdad = (edad) => (dispatch) => {
-  dispatch({ type: CAMBIO_EDAD, payload: !isNaN(edad) ? edad : '' });
+  dispatch({ type: CAMBIO_EDAD, payload: isNaN(edad) ? '' : edad });
 };
 
 export const enviarError = (error) => (dispatch) => {
@@ -76,3 +98,7 @@ export const enviarError = (error) => (dispatch) => {
 export const habilitarFormulario = (habilitar) => (dispatch) => {
   dispatch({ type: FORMULARIO_SOLO_LECTURA, payload: !habilitar });
 };
+
+export const validarFormulario = () => (
+  this.props.nombre && this.props.apellidoPaterno && this.props.apellidoMaterno && this.props.edad
+);

@@ -1,7 +1,8 @@
 export const ERROR_USUARIOS = 'errorUsuarios';
-export const CARGANDO_USUARIOS = 'iniciandoUsuarios';
+export const INICIANDO_PROCESO_USUARIOS = 'iniciandoUsuarios';
 export const USUARIOS_CARGADOS = 'usuariosCargados';
 export const USUARIO_CREADO = 'usuarioCreado';
+export const USUARIO_CARGADO = 'usuarioCargado';
 export const USUARIO_MODIFICADO = 'usuarioModificado';
 export const USUARIO_ELIMINADO = 'usuarioEliminado';
 export const CONSULTA_USUARIOS = 'consultaUsuarios';

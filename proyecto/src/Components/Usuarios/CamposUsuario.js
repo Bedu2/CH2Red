@@ -24,8 +24,8 @@ const CamposUsuario = (props) => {
     <div className="row">
       <Input s={12} m={6} label="Nombre" type='text'
              disabled={props.soloLectura}
-             onChange={cambiarNombre} value={ props.nombre } />
-      <Input s={12} m={6} label="Apellido Paterno" type='text' validate
+             onChange={cambiarNombre} value={props.nombre} />
+      <Input s={12} m={6} label="Apellido Paterno" type='text'
              disabled={props.soloLectura}
              onChange={cambiarApellidoPaterno} value={ props.apellidoPaterno } />
       <Input s={12} m={6} label="Apellido Materno" type='text'

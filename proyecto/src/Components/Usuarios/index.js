@@ -7,6 +7,7 @@ import * as Rutas from '../../Paths';
 
 class Usuarios extends Component {
   componentDidMount() {
+    console.log(this.props);
     if (!this.props.consultaUsuarios) {
       this.props.cargarUsuarios();
     }
@@ -53,10 +54,11 @@ class Usuarios extends Component {
               <Modal header="Eliminar usuario"
                      actions={
                       <div>
-                        <Button className="red modal-close" onClick={() => alert(":(")}>Sí</Button>
+                        <Button className="red modal-close" onClick={
+                          () => this.props.eliminarUsuario(usuario._id)
+                        }>Sí</Button>
                         <Button className="green modal-close">No</Button>
-                      </div>
-                }
+                      </div> }
                      trigger={<Link to="\"><Icon>delete_forever</Icon></Link>}>
                 <p>¿Desea eliminar a {usuario.nombre}?</p>
               </Modal>
