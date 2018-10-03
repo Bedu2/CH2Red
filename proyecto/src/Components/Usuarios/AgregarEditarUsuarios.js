@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Preloader } from 'react-materialize';
+import { Link, Redirect } from 'react-router-dom';
 import * as UsuariosAction from '../../Actions/UsuariosActions';
 import CamposUsuario from './CamposUsuario';
 
 class AgregarEditar extends Component {
 	componentDidMount() {
-	  console.log(this.props.match);
-	  if (this.props.match.params.id){
-			this.props.obtenerUsuario(this.props.match.params.id)
-		}
-	  if (!this.props.consultaUsuarios) {
-	  	this.props.cargarUsuarios();
-		}
+    if (this.props.match.params.id) {
+      this.props.obtenerUsuario(this.props.match.params.id)
+    }
+    // }
+    // if (!this.props.consultaUsuarios) {
+	  	// this.props.cargarUsuarios();
+		// }
   }
 
 	crearNuevoUsuario = () => {
@@ -34,23 +34,26 @@ class AgregarEditar extends Component {
 
 	mostrarBotonGuardar = () => (
     <div className="row">
-      <div className="col s6 offset-s3 m4 offset-m4">
-				<Button style={{width: '100%'}} waves='light'
-								disabled= { !this.validarFormulario() }
-								onClick={ this.clickGuardar }>
-					Guardar
-				</Button>
-      </div>
+			<Button className="col s6 offset-m2 m4" waves='light'
+							disabled= { !this.validarFormulario() }
+							onClick={ this.clickGuardar }>
+				Guardar
+			</Button>
+			<Button className="col s6 m4 red" waves='light'
+					    onClick={ () => this.props.activarRedireccionAInicio(true) }>
+				Cancelar
+			</Button>
     </div>
   );
 
-  validarFormulario = () => (
-    this.props.nombre && this.props.apellidoPaterno && this.props.apellidoMaterno && this.props.edad
-	);
+  validarFormulario = () =>
+    this.props.nombre && this.props.apellidoPaterno && this.props.apellidoMaterno && this.props.edad;
 
 	clickGuardar = () => {
 		const edad = this.props.edad;
 		if (edad < 12 || edad > 150) {
+		  window.Materialize.toast('La edad no es válida.');
+		  this.props.cambiarEdad('');
 			return;
 		}
 		const datosUsuario = this.crearNuevoUsuario();
@@ -59,9 +62,9 @@ class AgregarEditar extends Component {
 	};
 
 	render() {
-		// console.log(this.props); 
-		return (
-			<div>
+		return this.props.redireccionar ?
+			(<Redirect to='/' />) :
+			(<div>
 				<CamposUsuario/>
 				{ this.props.cargando ? this.mostrarPreloader() : this.mostrarBotonGuardar() }
 			</div>

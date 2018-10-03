@@ -7,8 +7,7 @@ import {
   INICIANDO_PROCESO_USUARIOS,
   USUARIOS_CARGADOS,
 //	CONSULTA_USUARIOS,
-  FORMULARIO_SOLO_LECTURA,
-  LIMPIAR_FORMULARIO, USUARIO_CREADO, USUARIO_ELIMINADO, USUARIO_CARGADO, USUARIO_MODIFICADO
+  LIMPIAR_FORMULARIO, USUARIO_CREADO, USUARIO_ELIMINADO, USUARIO_CARGADO, USUARIO_MODIFICADO, REDIRECCIONAR
 } from '../Types/UsuariosTypes';
 
 const INITIAL_STATE = {
@@ -20,17 +19,20 @@ const INITIAL_STATE = {
 	apellidoMaterno: '',
 	edad: '',
 	idUsuario: '',
-	soloLectura: false,
-	datosCompletos: false
+	datosCompletos: false,
+	redireccionar: false
 };
 
-export default (state= INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
+  const obtenerIndiceUsuario = (idUsuario) => state.usuarios.findIndex((usuario) => {
+    return usuario._id === idUsuario
+  });
+
 	switch (action.type){
 		case CAMBIO_NOMBRE: return { ...state, nombre: action.payload };
 		case CAMBIO_APELLIDO_PATERNO: return { ...state, apellidoPaterno: action.payload};
 		case CAMBIO_APELLIDO_MATERNO: return { ...state, apellidoMaterno: action.payload};
 		case CAMBIO_EDAD: return { ...state, edad: action.payload };
-		case FORMULARIO_SOLO_LECTURA: return { ...state, soloLectura: action.payload };
 		case LIMPIAR_FORMULARIO: return {
 			...state,
 			nombre:'',
@@ -41,7 +43,9 @@ export default (state= INITIAL_STATE, action) => {
 		case ERROR_USUARIOS:
 			console.log(action.payload);
 			return { ...state, error: action.payload, cargando: false};
-		case INICIANDO_PROCESO_USUARIOS: return { ...state, cargando: true };
+		case INICIANDO_PROCESO_USUARIOS: return {
+			...state,
+			cargando: true };
 		case USUARIOS_CARGADOS: return {
 			...state,
 			cargando: false,
@@ -60,12 +64,20 @@ export default (state= INITIAL_STATE, action) => {
 			edad: action.payload.edad
 		};
 		case USUARIO_MODIFICADO:
-			const idModificado = state.usuarios.findIndex((usuario) => {
-				return usuario._id === action.payload._id
-			});
-			state.usuarios.splice(idModificado, 1, action.payload);
+			const idModificado = obtenerIndiceUsuario(action.payload._id);
+			console.log(idModificado);
+			if (idModificado >= 0) {
+        state.usuarios.splice(idModificado, 1, action.payload);
+      }
 			return { ...state, cargando: false };
-		case USUARIO_ELIMINADO: return { ...state, consultaUsuarios: false };
+		case USUARIO_ELIMINADO:
+			const idEliminado = obtenerIndiceUsuario(action.payload);
+			if (idEliminado >= 0) {
+				state.usuarios.splice(idEliminado, 1);
+			}
+			return { ...state, cargando: false };
+		case REDIRECCIONAR:
+			return {...state, redireccionar: action.payload };
 		default: return state;
 	}
 }
