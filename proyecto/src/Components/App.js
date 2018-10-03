@@ -2,8 +2,9 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Header from './Header';
 import Usuarios from './Usuarios';
-import UsuariosAgregar from './Usuarios/AgregarUsuarios';
+import AgregarEditar from './Usuarios/AgregarEditarUsuarios';
 import '../App.css';
+import * as Rutas from '../Paths';
 
 const App = () => (
       <div>
@@ -14,8 +15,8 @@ const App = () => (
       			<br/>
       			<div className='container' >
       				<Route exact path='/' component= {Usuarios} />
-      				<Route exact path='/AgregarUsuario' component= {UsuariosAgregar} />
-      				<Route exact path='/VerUsuarios/:id' component= {UsuariosAgregar} />
+      				<Route exact path={Rutas.RUTA_AGREGAR_USUARIO} component= {AgregarEditar} />
+      				<Route exact path={`${Rutas.RUTA_EDITAR_USUARIO}:id`} component= {AgregarEditar} />
       			</div>
       		</div>
 
