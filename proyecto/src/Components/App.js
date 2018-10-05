@@ -7,21 +7,21 @@ import '../App.css';
 import * as Rutas from '../Paths';
 
 const App = () => (
+  <div>
+    <BrowserRouter>
       <div>
-      	<BrowserRouter>
-      		<div>
-      			<Header />
-      			<br/>
-      			<br/>
-      			<div className='container' >
-      				<Route exact path='/' component= {Usuarios} />
-      				<Route exact path={Rutas.RUTA_AGREGAR_USUARIO} component= {AgregarEditar} />
-      				<Route exact path={`${Rutas.RUTA_EDITAR_USUARIO}:id`} component= {AgregarEditar} />
-      			</div>
-      		</div>
-
-        </BrowserRouter>
+        <Header />
+        <br/>
+        <br/>
+        <div className='container' >
+          <Route exact path='/' component= {Usuarios} />
+          <Route exact path={Rutas.RUTA_AGREGAR_USUARIO} component= {AgregarEditar} />
+          <Route exact path={`${Rutas.RUTA_EDITAR_USUARIO}:id`} component= {AgregarEditar} />
+        </div>
       </div>
-    );
+
+    </BrowserRouter>
+  </div>
+);
 
 export default App;
