@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Table, Icon, Button, Preloader, Modal } from 'react-materialize';
 import * as UsuariosActions from '../../Actions/UsuariosActions';
 import * as Rutas from '../../Paths';
+import FormularioUsuarioIncompleto from './FormularioUsuarioIncompleto';
 
 class Usuarios extends Component {
   componentDidMount() {
@@ -54,12 +55,13 @@ class Usuarios extends Component {
               <Modal header="Eliminar usuario"
                      actions={
                       <div>
-                        <Button className="red modal-close" onClick={
-                          () => this.props.eliminarUsuario(usuario._id)
-                        }>Sí</Button>
+                        <Button className="red modal-close"
+                                onClick={() => this.props.eliminarUsuario(usuario._id)}>
+                          Sí
+                        </Button>
                         <Button className="green modal-close">No</Button>
                       </div> }
-                     trigger={<Link to="\"><Icon>delete_forever</Icon></Link>}>
+                     trigger={<Link to="/"><Icon>delete_forever</Icon></Link>}>
                 <p>¿Desea eliminar a {usuario.nombre}?</p>
               </Modal>
             </td>
@@ -69,10 +71,21 @@ class Usuarios extends Component {
     </Table>
   );
 
+  mostrarContenido = () => (
+    <div>
+      { this.validarFormulario() ? <FormularioUsuarioIncompleto/> : '' }
+      { this.props.usuarios.length ? this.mostrarUsuarios() : this.mostrarMensajeNoUsuarios() }
+    </div>
+  );
+
+  validarFormulario = () =>
+    this.props.nombre || this.props.apellidoPaterno || this.props.apellidoMaterno || this.props.edad;
+
   obtenerNombreCompleto = (usuario) =>
     `${usuario.nombre} ${usuario.apellidos.paterno} ${usuario.apellidos.materno}`;
 
   render() {
+    this.props.activarRedireccionAInicio(false);
     return (
       <div>
         <div className='valign-wrapper'  >
@@ -83,11 +96,7 @@ class Usuarios extends Component {
         </div>
         { this.props.cargando ?
           (<div className="center-align"><Preloader/></div>) : (
-            this.props.error ? this.mostrarError() : (
-              this.props.usuarios.length ?
-                this.mostrarUsuarios() :
-                this.mostrarMensajeNoUsuarios()
-            )
+            this.props.error ? this.mostrarError() : this.mostrarContenido()
           )
         }
       </div>

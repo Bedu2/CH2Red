@@ -10,7 +10,9 @@ import {
   CAMBIO_APELLIDO_PATERNO,
   CAMBIO_APELLIDO_MATERNO,
   CAMBIO_EDAD,
-  FORMULARIO_SOLO_LECTURA, LIMPIAR_FORMULARIO, USUARIO_CARGADO
+  LIMPIAR_FORMULARIO,
+  USUARIO_CARGADO,
+  REDIRECCIONAR
 } from "../Types/UsuariosTypes";
 
 const TIEMPO_TOAST = 4000;
@@ -55,9 +57,10 @@ export const obtenerUsuario = (id) => async (dispatch) => {
 export const modificarUsuario = (id, usuarioActualizado) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
-    await axios.post(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`, usuarioActualizado);
-    dispatch({ type: USUARIO_MODIFICADO });
+    const response = await axios.post(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`, usuarioActualizado);
+    dispatch({ type: USUARIO_MODIFICADO, payload: response.data });
     dispatch({ type: LIMPIAR_FORMULARIO });
+    dispatch({ type: REDIRECCIONAR, payload: true });
     window.Materialize.toast('Usuario modificado.', TIEMPO_TOAST);
   }
   catch (err) {
@@ -68,8 +71,9 @@ export const modificarUsuario = (id, usuarioActualizado) => async (dispatch) => 
 export const eliminarUsuario = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
-    await axios.delete(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
-    dispatch({ type: USUARIO_ELIMINADO })
+    const response = await axios.delete(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
+    console.log(response);
+    dispatch({ type: USUARIO_ELIMINADO, payload: id })
   }
   catch (err) {
     dispatch({ type: ERROR_USUARIOS, payload: err })
@@ -92,14 +96,9 @@ export const cambiarEdad = (edad) => (dispatch) => {
   dispatch({ type: CAMBIO_EDAD, payload: isNaN(edad) ? '' : edad });
 };
 
-export const enviarError = (error) => (dispatch) => {
-  dispatch({ type: ERROR_USUARIOS, payload: error });
+export const activarRedireccionAInicio = (redireccionar) => (dispatch) => {
+  if (redireccionar) {
+    dispatch({ type: LIMPIAR_FORMULARIO });
+  }
+  dispatch({ type: REDIRECCIONAR, payload: redireccionar });
 };
-
-export const habilitarFormulario = (habilitar) => (dispatch) => {
-  dispatch({ type: FORMULARIO_SOLO_LECTURA, payload: !habilitar });
-};
-
-export const validarFormulario = () => (
-  this.props.nombre && this.props.apellidoPaterno && this.props.apellidoMaterno && this.props.edad
-);
