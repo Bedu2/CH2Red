@@ -75,8 +75,6 @@ class AgregarEditar extends Component {
   }
 }
 
-const mapStateToProps = ({ UsuariosReducer }) => {
-  return UsuariosReducer;
-};
+const mapStateToProps = ({ UsuariosReducer }) => UsuariosReducer;
 
 export default connect(mapStateToProps, UsuariosAction)(AgregarEditar);

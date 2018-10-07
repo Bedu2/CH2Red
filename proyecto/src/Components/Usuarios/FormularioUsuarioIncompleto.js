@@ -20,8 +20,6 @@ const FormularioIncompleto = (props) => (
   </div>
 );
 
-const mapStateToProps = ({ UsuariosReducer }) => {
-  return UsuariosReducer;
-};
+const mapStateToProps = ({ UsuariosReducer }) => UsuariosReducer;
 
 export default connect(mapStateToProps, UsuariosActions) (FormularioIncompleto);
