@@ -13,7 +13,7 @@ import {
   LIMPIAR_FORMULARIO,
   USUARIO_CARGADO,
   REDIRECCIONAR
-} from "../Types/UsuariosTypes";
+} from "../Types/usuariosTypes";
 
 const TIEMPO_TOAST = 4000;
 

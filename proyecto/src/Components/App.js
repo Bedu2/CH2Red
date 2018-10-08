@@ -9,7 +9,7 @@ import '../App.css';
 import * as Rutas from '../Paths';
 
 const App = () => (
-      <div>
+  <div>
       	<BrowserRouter>
       		<div>
       			<Header />
@@ -29,6 +29,6 @@ const App = () => (
 
         </BrowserRouter>
       </div>
-    );
+);
 
 export default App;

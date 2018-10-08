@@ -23,12 +23,12 @@ class Usuarios extends Component {
   );
 
   mostrarMensajeNoUsuarios = () => (
-      <div className="center-align">
-        <Icon large className="grey-text text-lighten-2">person_outline</Icon>
-        <h4>No hay usuarios.</h4>
-        <p>Puede <Link to={Rutas.RUTA_AGREGAR_USUARIO}>crear un usuario</Link> ahora mismo.</p>
-      </div>
-    );
+    <div className="center-align">
+      <Icon large className="grey-text text-lighten-2">person_outline</Icon>
+      <h4>No hay usuarios.</h4>
+      <p>Puede <Link to={Rutas.RUTA_AGREGAR_USUARIO}>crear un usuario</Link> ahora mismo.</p>
+    </div>
+  );
 
   mostrarUsuarios = () => (
     <Table>
