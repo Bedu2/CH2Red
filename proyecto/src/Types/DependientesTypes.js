@@ -11,5 +11,3 @@ export const DEPENDIENTE_CARGADO = 'dependiente_cargado';
 export const DEPENDIENTE_MODIFICADO = 'dependiente_modificado';
 export const DEPENDIENTE_ELIMINADO = 'dependiente_eliminado';
 export const REDIRECCIONAR_DEPENDIENTES = 'dependiente_redireccionar';
-
-		

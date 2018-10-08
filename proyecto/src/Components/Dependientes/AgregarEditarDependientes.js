@@ -87,6 +87,6 @@ class AgregarEditarDependiente extends Component {
 
 const mapStateToProps = ({ DependientesReducer }) => {
 	return DependientesReducer;
-}
+};
 
 export default connect(mapStateToProps, ActionsDependientes)(AgregarEditarDependiente);

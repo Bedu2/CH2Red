@@ -40,7 +40,7 @@ export const agregarDependiente = (nuevoDependiente) => async (dispatch) => {
     const response = await axios.post('https://g2-ch2.herokuapp.com/api/dependientes/red', nuevoDependiente);
     dispatch({ type: DEPENDIENTE_CREADO, payload: response.data });
     dispatch({ type: LIMPIAR_FORMULARIO_DEPENDIENTES });
-    window.Materialize.toast('Usuario agregado.', TIEMPO_TOAST);
+    window.Materialize.toast('Dependiente agregado.', TIEMPO_TOAST);
   }
   catch (err) {
     dispatch({ type: ERROR_DEPENDIENTES, payload: err});

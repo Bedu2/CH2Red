@@ -50,12 +50,11 @@ export default (state= INITIAL_STATE, action) => {
 		case DEPENDIENTES_CARGADOS: return {
 			...state,
 			cargando: false,
-			dependientes: action.payload,
-			consultaUsuarios: true};
+			dependientes: action.payload };
 		case DEPENDIENTE_CREADO: return {
 			...state,
 			cargando: false,
-			dependiente: action.payload };
+			dependientes: [action.payload, ...state.dependientes] };
 		case DEPENDIENTE_CARGADO: return {
 			...state,
 			cargando: false,
