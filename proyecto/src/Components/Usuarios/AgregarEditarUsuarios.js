@@ -13,6 +13,9 @@ class AgregarEditar extends Component {
     if (this.props.match.params.id) {
       this.props.obtenerUsuario(this.props.match.params.id)
     }
+    else {
+      console.log(this.props);
+    }
   }
 
   crearNuevoUsuario = () => {
