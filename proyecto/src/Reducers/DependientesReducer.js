@@ -11,7 +11,8 @@ import {
   DEPENDIENTE_CARGADO,
   DEPENDIENTE_MODIFICADO,
   DEPENDIENTE_ELIMINADO,
-	REDIRECCIONAR_DEPENDIENTES,
+  REDIRECCIONAR_DEPENDIENTES,
+  NOMBRE_COMPLETO_USUARIO
 } from '../Types/DependientesTypes';
 
 const INITIAL_STATE = {
@@ -33,6 +34,7 @@ export default (state= INITIAL_STATE, action) => {
 
 	switch (action.type){
 		case USUARIO_DEPENDIENTE: return { ...state, _usuario: action.payload };
+		case NOMBRE_COMPLETO_USUARIO: return { ...state, cargando: false, nombre_usuario: action.payload };
 		case NOMBRE_DEPENDIENTE: return { ...state, nombre_completo: action.payload };
 		case DEPENDENCIA: return { ...state, dependencia: action.payload };
 		case EDAD_DEPENDIENTE: return { ...state, edad: action.payload };
@@ -43,6 +45,7 @@ export default (state= INITIAL_STATE, action) => {
 			edad: '',
 			_usuario:''
 			};
+
 		case ERROR_DEPENDIENTES:
 			console.log(action.payload);
 			return { ...state, error: action.payload, cargando: false};

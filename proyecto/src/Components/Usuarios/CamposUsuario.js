@@ -14,13 +14,13 @@ const CamposUsuario = (props) => {
 
   return (
     <div className="row">
-      <Input s={12} m={6} label="Nombre" type='text' 
+      <Input s={12} m={6} label="Nombre" type='text' placeholder=' '
              onChange={cambiarNombre} value={props.nombre} />
-      <Input s={12} m={6} label="Apellido Paterno" type='text' 
+      <Input s={12} m={6} label="Apellido Paterno" type='text' placeholder=' '
              onChange={cambiarApellidoPaterno} value={ props.apellidoPaterno } />
-      <Input s={12} m={6} label="Apellido Materno" type='text' 
+      <Input s={12} m={6} label="Apellido Materno" type='text' placeholder=' '
              onChange={cambiarApellidoMaterno} value={ props.apellidoMaterno } />
-      <Input s={12} m={6} label="Edad" type='text'
+      <Input s={12} m={6} label="Edad" type='text' placeholder=' '
              onChange={cambiarEdad} value={ props.edad.toLocaleString() } />
     </div>
   );

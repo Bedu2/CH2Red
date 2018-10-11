@@ -91,7 +91,7 @@ class Usuarios extends Component {
         <div className='valign-wrapper'  >
           <h1>Usuarios</h1>
           <Link to={Rutas.RUTA_AGREGAR_USUARIO}>
-            <Button floating large className='red' waves='light' icon='add' />
+            <Button floating large className='red lighten-1' waves='light' icon='add' />
           </Link>
         </div>
         { this.props.cargando ?
