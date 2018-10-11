@@ -10,6 +10,7 @@ import { RUTA_LISTA_DEPENDIENTES } from "../../Paths";
 
 class AgregarEditarDependiente extends Component {
 	componentDidMount() {
+		console.log(this.props.match.params);
 		if (this.props.match.params.dependienteId) {
 			this.props.obtenerDependiente(this.props.match.params.dependienteId);
 		}
@@ -50,17 +51,18 @@ class AgregarEditarDependiente extends Component {
 
 	mostrarBotonGuardarDependientes = () => (
     <div className="row">
+			<Link to={`${RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
 				<Button  className="col s6 offset-m2 m4" waves='light'
 								disabled= { !this.validarFormularioDependiente() }
 								onClick={ this.clickGuardarDependiente }>
-								
 					Guardar
 				</Button>
-				<Link to={`${RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
-					<Button className="col s6 m4 red" waves='light'>
-						Cancelar
-					</Button>
-				</Link>
+			</Link>
+			<Link to={`${RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
+				<Button className="col s6 m4 red" waves='light'>
+					Cancelar
+				</Button>
+			</Link>
     </div>
   );
 

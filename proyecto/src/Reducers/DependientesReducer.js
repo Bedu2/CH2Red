@@ -42,9 +42,8 @@ export default (state= INITIAL_STATE, action) => {
 			...state,
 			nombre_completo:'',
 			dependencia:'',
-			edad: '',
-			_usuario:''
-			};
+			edad: ''
+		};
 
 		case ERROR_DEPENDIENTES:
 			console.log(action.payload);
@@ -63,7 +62,8 @@ export default (state= INITIAL_STATE, action) => {
 			cargando: false,
 			nombre_completo: action.payload.nombre_completo,
 			dependencia: action.payload.dependencia,
-			edad: action.payload.edad
+			edad: action.payload.edad,
+			redireccionar: false
 		};
 		case DEPENDIENTE_MODIFICADO:
 			const idModificado = obtenerIndiceDependiente(action.payload._id);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Table, Icon, Button, Preloader, Modal, Card, CardTitle, Col , Row} from 'react-materialize';
+import { Icon, Button, Preloader, Modal, Card, CardTitle, Col , Row} from 'react-materialize';
 import * as DependientesActions from '../../Actions/DependientesActions';
 import * as Rutas from '../../Paths';
 
@@ -11,15 +11,15 @@ class Dependientes extends Component {
     this.props.asignarIdUsuario(idUsuario);
     this.props.cargarDependientes(idUsuario);
     this.props.asignarNombreUsuario(idUsuario);
+    this.props.activarRedireccion(false);
   }
-
-
 
   mostrarError = () => (
     <div className="center-align">
       <Icon className="red-text text-darken-4" large>error</Icon>
       <h4>Ocurrió un error al cargar los dependientes</h4>
       <p><b>Mensaje:</b> {this.props.error.message}</p>
+      <Button className="red" onClick={() => this.props.enviarError('')}>Regresar</Button>
     </div>
   );
 
@@ -32,32 +32,35 @@ class Dependientes extends Component {
   );
 
   mostrarDependientes = () => (
-      <Row>
-      { this.props.dependientes.map((dependiente) => (
-        <Col s={6} m={4}>
-          <Card key={dependiente._id} actions={[ 
-            <div className='valign-wrapper'>
-            <Link to={`${Rutas.RUTA_EDITAR_DEPENDIENTE}${dependiente._id}`}><Icon>edit</Icon></Link>
-            <Modal header="Eliminar dependiente"
-                     actions={  
-                           <div>
-                             <Button className="red modal-close"
-                                     onClick={() => this.props.eliminarDependiente(dependiente._id)}>
-                               Sí
-                             </Button>
-                             <Button className="green modal-close">No</Button>
-                           </div> }
-                         trigger={<Link to="/"><Icon>delete_forever</Icon></Link>}>
-                        <p>¿Desea eliminar a {dependiente.nombre_completo}?</p>
-                       </Modal>
-                       </div>]}>
+  <Row>
+  { this.props.dependientes.map((dependiente) => (
+    <Col s={6} m={4}>
+      <Card key={dependiente._id} actions={[
+        <div className='valign-wrapper'>
+          <Link to={`${Rutas.RUTA_EDITAR_DEPENDIENTE}${dependiente._id}`}><Icon>edit</Icon></Link>
+          <Modal header="Eliminar dependiente"
+                 actions={
+                   <div>
+                     <Button className="red modal-close"
+                             onClick={() => this.props.eliminarDependiente(dependiente._id)}>
+                       Sí
+                     </Button>
+                     <Button className="green modal-close">No</Button>
+                   </div> }
+               trigger={
+                 <Link to={`${Rutas.RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
+                   <Icon>delete_forever</Icon>
+                 </Link>}>
+           <p>¿Desea eliminar a {dependiente.nombre_completo}?</p>
+          </Modal>
+        </div>]}>
 
-            <p>{dependiente.nombre_completo}</p>
-            <p>{dependiente.dependencia}</p>
-            <p>{dependiente.edad}</p>
-          </Card>
-        </Col>))}
-      </Row> 
+        <p>{dependiente.nombre_completo}</p>
+        <p>{dependiente.dependencia}</p>
+        <p>{dependiente.edad}</p>
+      </Card>
+    </Col>))}
+  </Row>
   );
 
   mostrarContenido = () => (
@@ -67,7 +70,7 @@ class Dependientes extends Component {
   );
 
   render() {
-//    this.props.activarRedireccionAInicio(false);
+    this.props.activarRedireccion(false);
     return (
       <div>
         <div>

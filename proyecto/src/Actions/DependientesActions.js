@@ -12,7 +12,8 @@ import {
   DEPENDIENTE_MODIFICADO,
   DEPENDIENTE_ELIMINADO,
   USUARIO_DEPENDIENTE,
-  REDIRECCIONAR_DEPENDIENTES
+  REDIRECCIONAR_DEPENDIENTES,
+  NOMBRE_COMPLETO_USUARIO
 } from "../Types/DependientesTypes";
 
 const TIEMPO_TOAST = 4000;
@@ -25,8 +26,8 @@ export const asignarNombreUsuario = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
   try {
     const response = await axios.get(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
-    const nombreCompleto = `${response.data[0].nombre} ${response.data[0].apellidos.paterno} ${response.data[0].apellidos.materno}`  
-    dispatch({ type: NOMBRE_DEPENDIENTE , payload: nombreCompleto })
+    const nombreCompleto = `${response.data[0].nombre} ${response.data[0].apellidos.paterno} ${response.data[0].apellidos.materno}`;
+    dispatch({ type: NOMBRE_COMPLETO_USUARIO , payload: nombreCompleto })
   }
   catch (err) {
     dispatch({ type: ERROR_DEPENDIENTES, payload: err});
@@ -117,11 +118,3 @@ export const enviarError = (error) => (dispatch) => {
 export const activarRedireccion = (activar) => (dispatch) => {
   dispatch({ type: REDIRECCIONAR_DEPENDIENTES, payload: activar })
 };
-
-
-
-
-
-
-
-
