@@ -12,7 +12,7 @@ import {
   CAMBIO_EDAD,
   LIMPIAR_FORMULARIO,
   USUARIO_CARGADO,
-  REDIRECCIONAR
+  REDIRECCIONAR, LIMPIAR_ERROR_USUARIOS
 } from "../Types/usuariosTypes";
 
 const TIEMPO_TOAST = 4000;
@@ -46,7 +46,6 @@ export const obtenerUsuario = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
     const response = await axios.get(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
-    console.log(response.data);
     dispatch({ type: USUARIO_CARGADO, payload: response.data[0] })
   }
   catch (err) {
@@ -71,9 +70,8 @@ export const modificarUsuario = (id, usuarioActualizado) => async (dispatch) => 
 export const eliminarUsuario = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_USUARIOS });
   try {
-    const response = await axios.delete(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
-    console.log(response);
-    dispatch({ type: USUARIO_ELIMINADO, payload: id })
+    await axios.delete(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
+    dispatch({ type: USUARIO_ELIMINADO, payload: id });
   }
   catch (err) {
     dispatch({ type: ERROR_USUARIOS, payload: err })
@@ -102,3 +100,7 @@ export const activarRedireccionAInicio = (redireccionar) => (dispatch) => {
   }
   dispatch({ type: REDIRECCIONAR, payload: redireccionar });
 };
+
+export const limpiarFormulario = () => (dispatch) => dispatch({ type: LIMPIAR_FORMULARIO });
+
+export const limpiarError = () => (dispatch) => dispatch({type: LIMPIAR_ERROR_USUARIOS});

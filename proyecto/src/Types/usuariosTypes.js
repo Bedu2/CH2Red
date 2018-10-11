@@ -14,3 +14,4 @@ export const CAMBIO_EDAD = 'cambiarUsuarioEdad';
 export const FORMULARIO_SOLO_LECTURA = 'usuarioSoloLectura';
 export const LIMPIAR_FORMULARIO = 'LimpiarFormulario';
 export const REDIRECCIONAR = 'redireccionarUsuarios';
+export const LIMPIAR_ERROR_USUARIOS = 'usuariosLimpiarError';
