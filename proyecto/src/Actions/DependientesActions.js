@@ -21,6 +21,18 @@ export const asignarIdUsuario = (id) => (dispatch) => {
   dispatch({ type: USUARIO_DEPENDIENTE, payload: id});
 };
 
+export const asignarNombreUsuario = (id) => async (dispatch) => {
+  dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
+  try {
+    const response = await axios.get(`https://g2-ch2.herokuapp.com/api/usuarios/red/${id}`);
+    const nombreCompleto = `${response.data[0].nombre} ${response.data[0].apellidos.paterno} ${response.data[0].apellidos.materno}`  
+    dispatch({ type: NOMBRE_DEPENDIENTE , payload: nombreCompleto })
+  }
+  catch (err) {
+    dispatch({ type: ERROR_DEPENDIENTES, payload: err});
+  }
+};
+
 export const cargarDependientes = (idUsuario) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
   try {
@@ -64,6 +76,7 @@ export const modificarDependiente = (id, dependienteActualizado) => async (dispa
   try {
     const response = await axios.post(`https://g2-ch2.herokuapp.com/api/dependientes/red/${id}`, dependienteActualizado);
     dispatch({ type: DEPENDIENTE_MODIFICADO, payload: response.data });
+    dispatch({ type: REDIRECCIONAR_DEPENDIENTES, payload: true });
     dispatch({ type: LIMPIAR_FORMULARIO_DEPENDIENTES });
     window.Materialize.toast('Dependiente modificado.', TIEMPO_TOAST);
   }
@@ -102,3 +115,11 @@ export const enviarError = (error) => (dispatch) => {
 export const activarRedireccion = (activar) => (dispatch) => {
   dispatch({ type: REDIRECCIONAR_DEPENDIENTES, payload: activar })
 };
+
+
+
+
+
+
+
+

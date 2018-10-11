@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Table, Icon, Button, Preloader, Modal } from 'react-materialize';
-import * as DependientesActions from '../../Actions/ActionsDependientes';
+import { Table, Icon, Button, Preloader, Modal, Card, CardTitle, Col , Row} from 'react-materialize';
+import * as DependientesActions from '../../Actions/DependientesActions';
 import * as Rutas from '../../Paths';
 
 class Dependientes extends Component {
@@ -10,7 +10,10 @@ class Dependientes extends Component {
     const idUsuario = this.props.match.params.id;
     this.props.asignarIdUsuario(idUsuario);
     this.props.cargarDependientes(idUsuario);
+    this.props.asignarNombreUsuario(idUsuario);
   }
+
+
 
   mostrarError = () => (
     <div className="center-align">
@@ -29,39 +32,32 @@ class Dependientes extends Component {
   );
 
   mostrarDependientes = () => (
-    <Table>
-      <thead>
-      <tr>
-        <th>Nombre completo</th>
-        <th className="hide-on-small-only">Dependencia</th>
-        <th className="hide-on-small-only">Edad</th>
-      </tr>
-      </thead>
-      <tbody>
+      <Row>
       { this.props.dependientes.map((dependiente) => (
-        <tr key={dependiente._id}>
-          <td>{dependiente.nombre_completo}</td>
-          <td className="hide-on-small-only">{dependiente.dependencia}</td>
-          <td className="hide-on-small-only">{dependiente.edad}</td>
-          <td><Link to={`${Rutas.RUTA_EDITAR_DEPENDIENTE}${dependiente._id}`}><Icon>edit</Icon></Link></td>
-          <td>
+        <Col s={6} m={4}>
+          <Card key={dependiente._id} actions={[ 
+            <div className='valign-wrapper'>
+            <Link to={`${Rutas.RUTA_EDITAR_DEPENDIENTE}${dependiente._id}`}><Icon>edit</Icon></Link>
             <Modal header="Eliminar dependiente"
-                   actions={
-                     <div>
-                       <Button className="red modal-close"
-                               onClick={() => this.props.eliminarDependiente(dependiente._id)}>
-                         Sí
-                       </Button>
-                       <Button className="green modal-close">No</Button>
-                     </div> }
-                   trigger={<Link to="/"><Icon>delete_forever</Icon></Link>}>
-              <p>¿Desea eliminar a {dependiente.nombre_completo}?</p>
-            </Modal>
-          </td>
-        </tr> ))
-      }
-      </tbody>
-    </Table>
+                     actions={  
+                           <div>
+                             <Button className="red modal-close"
+                                     onClick={() => this.props.eliminarDependiente(dependiente._id)}>
+                               Sí
+                             </Button>
+                             <Button className="green modal-close">No</Button>
+                           </div> }
+                         trigger={<Link to="/"><Icon>delete_forever</Icon></Link>}>
+                        <p>¿Desea eliminar a {dependiente.nombre_completo}?</p>
+                       </Modal>
+                       </div>]}>
+
+            <p>{dependiente.nombre_completo}</p>
+            <p>{dependiente.dependencia}</p>
+            <p>{dependiente.edad}</p>
+          </Card>
+        </Col>))}
+      </Row> 
   );
 
   mostrarContenido = () => (
@@ -74,17 +70,19 @@ class Dependientes extends Component {
 //    this.props.activarRedireccionAInicio(false);
     return (
       <div>
-        <div className='valign-wrapper'  >
-          <h1>Dependientes</h1>
-          <Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
-            <Button floating large className='red' waves='light' icon='add' />
-          </Link>
-        </div>
-        { this.props.cargando ?
+        <div>
+          <div>
+              <h1>{this.props.nombre_completo}</h1>
+              <h3>Dependientes<Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
+                        <Button floating large className='red lighten-1' waves='light' icon='add' />
+                        </Link></h3>
+          </div>
+              { this.props.cargando ?
           (<div className="center-align"><Preloader/></div>) : (
-            this.props.error ? this.mostrarError() : this.mostrarContenido()
-          )
+                  this.props.error ? this.mostrarError() : this.mostrarContenido() 
+                  ) 
         }
+          </div>
       </div>
     );
   };
