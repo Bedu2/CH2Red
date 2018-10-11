@@ -5,6 +5,7 @@ import { Table, Icon, Button, Preloader, Modal } from 'react-materialize';
 import * as UsuariosActions from '../../Actions/UsuariosActions';
 import * as Rutas from '../../Paths';
 import FormularioUsuarioIncompleto from './FormularioUsuarioIncompleto';
+import MensajeError from '../MensajeError';
 
 class Usuarios extends Component {
   componentDidMount() {
@@ -15,12 +16,9 @@ class Usuarios extends Component {
   }
 
   mostrarError = () => (
-    <div className="center-align">
-      <Icon className="red-text text-darken-4" large>error</Icon>
-      <h4>Ocurrió un error al cargar los usuarios</h4>
-      <p><b>Mensaje:</b> {this.props.error.message}</p>
-      <Button className="red" onClick={this.props.limpiarError}>Regresar</Button>
-    </div>
+    <MensajeError tituloError={'Ocurrió un error al cargar los usuarios'}
+                  mensajeError={this.props.error.message}
+                  accion={this.props.limpiarError}/>
   );
 
   mostrarMensajeNoUsuarios = () => (

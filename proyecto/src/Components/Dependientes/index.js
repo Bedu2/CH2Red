@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Icon, Button, Preloader, Modal, Card, CardTitle, Col , Row} from 'react-materialize';
+import MensajeError from '../MensajeError';
+import FormularioDependienteIncompleto from './FormularioDependienteIncompleto';
 import * as DependientesActions from '../../Actions/DependientesActions';
 import * as Rutas from '../../Paths';
 
@@ -15,12 +17,9 @@ class Dependientes extends Component {
   }
 
   mostrarError = () => (
-    <div className="center-align">
-      <Icon className="red-text text-darken-4" large>error</Icon>
-      <h4>Ocurrió un error al cargar los dependientes</h4>
-      <p><b>Mensaje:</b> {this.props.error.message}</p>
-      <Button className="red" onClick={() => this.props.enviarError('')}>Regresar</Button>
-    </div>
+    <MensajeError tituloError={'Ocurrió un error al cargar los dependientes'}
+                  mensajeError={this.props.error.message}
+                  accion={() => this.props.enviarError('')}/>
   );
 
   mostrarMensajeNoDependientes = () => (
@@ -65,9 +64,12 @@ class Dependientes extends Component {
 
   mostrarContenido = () => (
     <div>
+      { this.validarFormulario() ? <FormularioDependienteIncompleto /> : '' }
       { this.props.dependientes.length ? this.mostrarDependientes() : this.mostrarMensajeNoDependientes() }
     </div>
   );
+
+  validarFormulario = () => (this.props.nombre_completo || this.props.dependencia || this.props.edad);
 
   render() {
     this.props.activarRedireccion(false);
@@ -75,14 +77,14 @@ class Dependientes extends Component {
       <div>
         <div>
           <div>
-              <h1>{this.props.nombre_completo}</h1>
+              <h1>{this.props.nombre_usuario}</h1>
               <h3>Dependientes<Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
                         <Button floating large className='red lighten-1' waves='light' icon='add' />
                         </Link></h3>
           </div>
               { this.props.cargando ?
           (<div className="center-align"><Preloader/></div>) : (
-                  this.props.error ? this.mostrarError() : this.mostrarContenido() 
+                  this.props.error ? this.mostrarError() : this.mostrarContenido()
                   ) 
         }
           </div>

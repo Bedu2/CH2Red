@@ -9,7 +9,7 @@ const FormularioIncompleto = (props) => (
       <Icon large className="amber-text">warning</Icon>
     </Col>
     <Col s={8} m={6}>
-      <h5>Hay un usuario pendiente</h5>
+      <h5>Hay un usuario sin terminar</h5>
       <ul>
         { props.nombre ? (<li>Nombre: <b>{props.nombre}</b></li>) : '' }
         { props.apellidoPaterno ? (<li>Apellido paterno: <b>{props.apellidoPaterno}</b></li>) : '' }
