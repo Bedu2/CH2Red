@@ -55,20 +55,18 @@ export default (state = INITIAL_STATE, action) => {
       cargando: false,
       usuarios: [action.payload, ...state.usuarios]
     };
-    case USUARIO_CARGADO:
-      console.log(action.payload);
-      return {
+    case USUARIO_CARGADO: return {
       ...state,
       cargando: false,
       nombre: action.payload.nombre,
       apellidoPaterno: action.payload.apellidos.paterno,
       apellidoMaterno: action.payload.apellidos.materno,
       edad: action.payload.edad,
-      idUsuario: action.payload._id
+      idUsuario: action.payload._id,
+      redireccionar: false
     };
     case USUARIO_MODIFICADO:
       const idModificado = obtenerIndiceUsuario(action.payload._id);
-      console.log(idModificado);
       if (idModificado >= 0) {
         state.usuarios.splice(idModificado, 1, action.payload);
       }

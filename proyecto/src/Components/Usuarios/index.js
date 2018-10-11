@@ -93,10 +93,10 @@ class Usuarios extends Component {
             <Button floating large className='red lighten-1' waves='light' icon='add' />
           </Link>
         </div>
-        { this.props.cargando ?
-          (<div className="center-align"><Preloader/></div>) : (
-            this.props.error ? this.mostrarError() : this.mostrarContenido()
-          )
+        {
+          this.props.cargando ?
+            (<div className="center-align"><Preloader/></div>) :
+            (this.props.error ? this.mostrarError() : this.mostrarContenido())
         }
       </div>
     );

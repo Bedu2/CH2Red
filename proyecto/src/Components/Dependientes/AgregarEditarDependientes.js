@@ -5,17 +5,23 @@ import { Button, Preloader, Input } from 'react-materialize';
 import * as ActionsDependientes from '../../Actions/DependientesActions';
 import { RUTA_LISTA_DEPENDIENTES } from "../../Paths";
 
-
-//import CamposUsuario from './CamposUsuario';
-
 class AgregarEditarDependiente extends Component {
 	componentDidMount() {
 		console.log(this.props.match.params);
 		if (this.props.match.params.dependienteId) {
+		  // `dependienteId` se define en /editarDependiente/
 			this.props.obtenerDependiente(this.props.match.params.dependienteId);
 		}
 		else if (this.props.match.params.usuarioId) {
+		  // `usuarioId` se define en /agregarDependiente/
 			this.props.asignarIdUsuario(this.props.match.params.usuarioId);
+			if (this.props.idDependiente) {
+			  // Si `idDependiente` tiene un valor asignado, hay una edición
+        // de dependiente en curso; pero al haber entrado al modo
+        // de agregar nuevo dependiente, se descartan los datos ya
+        // existentes
+        this.props.limpiarFormularioDependientes();
+      }
 		}
 	}
 
@@ -58,11 +64,10 @@ class AgregarEditarDependiente extends Component {
 					Guardar
 				</Button>
 			</Link>
-			<Link to={`${RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
-				<Button className="col s6 m4 red" waves='light'>
-					Cancelar
-				</Button>
-			</Link>
+			<Button className="col s6 m4 red" waves='light'
+							onClick={ () => this.props.activarRedireccion(true) }>
+				Cancelar
+			</Button>
     </div>
   );
 
@@ -89,8 +94,6 @@ class AgregarEditarDependiente extends Component {
 	}
 }
 
-const mapStateToProps = ({ DependientesReducer }) => {
-	return DependientesReducer;
-};
+const mapStateToProps = ({ DependientesReducer }) => DependientesReducer;
 
 export default connect(mapStateToProps, ActionsDependientes)(AgregarEditarDependiente);

@@ -19,7 +19,7 @@ class Dependientes extends Component {
   mostrarError = () => (
     <MensajeError tituloError={'Ocurrió un error al cargar los dependientes'}
                   mensajeError={this.props.error.message}
-                  accion={() => this.props.enviarError('')}/>
+                  accion={() => this.props.limpiarError}/>
   );
 
   mostrarMensajeNoDependientes = () => (
@@ -34,7 +34,7 @@ class Dependientes extends Component {
   <Row>
   { this.props.dependientes.map((dependiente) => (
     <Col s={6} m={4}>
-      <Card key={dependiente._id} actions={[
+      <Card key={dependiente._id} title={dependiente.nombre_completo} actions={[
         <div className='valign-wrapper'>
           <Link to={`${Rutas.RUTA_EDITAR_DEPENDIENTE}${dependiente._id}`}><Icon>edit</Icon></Link>
           <Modal header="Eliminar dependiente"
@@ -46,17 +46,16 @@ class Dependientes extends Component {
                      </Button>
                      <Button className="green modal-close">No</Button>
                    </div> }
-               trigger={
-                 <Link to={`${Rutas.RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
-                   <Icon>delete_forever</Icon>
-                 </Link>}>
+                 trigger={
+                   <Link to={`${Rutas.RUTA_LISTA_DEPENDIENTES}${this.props._usuario}`}>
+                     <Icon>delete_forever</Icon>
+                   </Link>}>
            <p>¿Desea eliminar a {dependiente.nombre_completo}?</p>
           </Modal>
         </div>]}>
 
-        <p>{dependiente.nombre_completo}</p>
+        <p>{dependiente.edad} año{dependiente.edad === 1 ? '' : 's'}</p>
         <p>{dependiente.dependencia}</p>
-        <p>{dependiente.edad}</p>
       </Card>
     </Col>))}
   </Row>
@@ -77,17 +76,19 @@ class Dependientes extends Component {
       <div>
         <div>
           <div>
-              <h1>{this.props.nombre_usuario}</h1>
-              <h3>Dependientes<Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
-                        <Button floating large className='red lighten-1' waves='light' icon='add' />
-                        </Link></h3>
+            <h1>{this.props.nombre_usuario}</h1>
+            <h3>Dependientes
+              <Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
+                <Button floating large className='red lighten-1' waves='light' icon='add' />
+              </Link>
+            </h3>
           </div>
-              { this.props.cargando ?
-          (<div className="center-align"><Preloader/></div>) : (
-                  this.props.error ? this.mostrarError() : this.mostrarContenido()
-                  ) 
-        }
-          </div>
+          {
+            this.props.cargando ?
+              ( <div className="center-align"><Preloader/></div> ) :
+              ( this.props.error ? this.mostrarError() : this.mostrarContenido() )
+          }
+        </div>
       </div>
     );
   };

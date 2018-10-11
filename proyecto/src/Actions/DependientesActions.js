@@ -49,7 +49,6 @@ export const cargarDependientes = (idUsuario) => async (dispatch) => {
 export const agregarDependiente = (nuevoDependiente) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
   try {
-    console.log(nuevoDependiente);
     const response = await axios.post('https://g2-ch2.herokuapp.com/api/dependientes/red', nuevoDependiente);
     dispatch({ type: DEPENDIENTE_CREADO, payload: response.data });
     dispatch({ type: LIMPIAR_FORMULARIO_DEPENDIENTES });
@@ -64,7 +63,6 @@ export const obtenerDependiente = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
   try {
     const response = await axios.get(`https://g2-ch2.herokuapp.com/api/dependientes/red/${id}`);
-    console.log(response.data);
     dispatch({ type: DEPENDIENTE_CARGADO, payload: response.data[0] })
   }
   catch (err) {
@@ -77,8 +75,8 @@ export const modificarDependiente = (id, dependienteActualizado) => async (dispa
   try {
     const response = await axios.post(`https://g2-ch2.herokuapp.com/api/dependientes/red/${id}`, dependienteActualizado);
     dispatch({ type: DEPENDIENTE_MODIFICADO, payload: response.data });
-    dispatch({ type: REDIRECCIONAR_DEPENDIENTES, payload: true });
     dispatch({ type: LIMPIAR_FORMULARIO_DEPENDIENTES });
+    dispatch({ type: REDIRECCIONAR_DEPENDIENTES, payload: true });
     window.Materialize.toast('Dependiente modificado.', TIEMPO_TOAST);
   }
   catch (err) {
@@ -89,9 +87,7 @@ export const modificarDependiente = (id, dependienteActualizado) => async (dispa
 export const eliminarDependiente = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
   try {
-    console.log(id);
     const response = await axios.delete(`https://g2-ch2.herokuapp.com/api/dependientes/red/${id}`);
-    console.log(response.data);
     dispatch({ type: DEPENDIENTE_ELIMINADO, payload: id })
   }
   catch (err) {
@@ -111,10 +107,15 @@ export const cambiarEdad = (edad) => (dispatch) => {
   dispatch({ type: EDAD_DEPENDIENTE, payload: isNaN(edad) ? '' : edad });
 };
 
-export const enviarError = (error) => (dispatch) => {
-  dispatch({ type: ERROR_DEPENDIENTES, payload: error });
+export const limpiarFormularioDependientes = () => (dispatch) => dispatch({ type: LIMPIAR_FORMULARIO_DEPENDIENTES });
+
+export const limpiarError = () => (dispatch) => {
+  dispatch({ type: ERROR_DEPENDIENTES, payload: '' });
 };
 
 export const activarRedireccion = (activar) => (dispatch) => {
+  if (activar) {
+    dispatch({ type: LIMPIAR_FORMULARIO_DEPENDIENTES });
+  }
   dispatch({ type: REDIRECCIONAR_DEPENDIENTES, payload: activar })
 };
