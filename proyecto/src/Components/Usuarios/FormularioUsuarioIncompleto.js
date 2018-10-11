@@ -1,14 +1,14 @@
 import React from 'react';
-import { Icon } from 'react-materialize';
+import { Icon, Row, Col } from 'react-materialize';
 import { connect } from 'react-redux';
 import * as UsuariosActions from "../../Actions/UsuariosActions";
 
 const FormularioIncompleto = (props) => (
-  <div className="row">
-    <div className="col s8 m2 offset-s2 offset-m2 center-align">
+  <Row>
+    <Col s={8} m={2} className="offset-s2 offset-m2 center-align">
       <Icon large className="amber-text">warning</Icon>
-    </div>
-    <div className="col s8 m6">
+    </Col>
+    <Col s={8} m={6}>
       <h5>Hay un usuario pendiente</h5>
       <ul>
         { props.nombre ? (<li>Nombre: <b>{props.nombre}</b></li>) : '' }
@@ -16,8 +16,8 @@ const FormularioIncompleto = (props) => (
         { props.apellidoMaterno ? (<li>Apellido materno: <b>{props.apellidoMaterno}</b></li>) : '' }
         { props.edad ? (<li>Edad: <b>{props.edad}</b></li>) : '' }
       </ul>
-    </div>
-  </div>
+    </Col>
+  </Row>
 );
 
 const mapStateToProps = ({ UsuariosReducer }) => UsuariosReducer;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Preloader } from 'react-materialize';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import * as UsuariosAction from '../../Actions/UsuariosActions';
 import CamposUsuario from './CamposUsuario';
 
@@ -11,19 +11,27 @@ const EDAD_MAXIMA = 150;
 class AgregarEditar extends Component {
   componentDidMount() {
     if (this.props.match.params.id) {
+      // Si `params` tiene `id`, se está editando un usuario existente:
+      // obtenerlo de la BD.
       this.props.obtenerUsuario(this.props.match.params.id)
+    }
+    else if (!this.props.id_usuario) {
+      // Si `id_usuario` tiene un valor asignado, hay una edición de usuario
+      // pendiente; pero si `params` no tiene `id`, se está creando un usuario
+      // nuevo, así que se descartan los datos del usuario ya existente y el
+      // formulario aparece en blanco.
+      this.props.limpiarFormulario();
     }
   }
 
-  crearNuevoUsuario = () => {
-    return {
+  crearNuevoUsuario = () => ({
     nombre: this.props.nombre,
     apellidos: {
       paterno: this.props.apellidoPaterno,
       materno: this.props.apellidoMaterno
     },
     edad: this.props.edad
-  }};
+  });
 
   mostrarPreloader = () => (
     <div className="center-align">

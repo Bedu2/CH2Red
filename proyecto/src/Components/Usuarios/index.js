@@ -19,6 +19,7 @@ class Usuarios extends Component {
       <Icon className="red-text text-darken-4" large>error</Icon>
       <h4>Ocurrió un error al cargar los usuarios</h4>
       <p><b>Mensaje:</b> {this.props.error.message}</p>
+      <Button className="red" onClick={this.props.limpiarError}>Regresar</Button>
     </div>
   );
 
