@@ -87,7 +87,7 @@ export const modificarDependiente = (id, dependienteActualizado) => async (dispa
 export const eliminarDependiente = (id) => async (dispatch) => {
   dispatch({ type: INICIANDO_PROCESO_DEPENDIENTES });
   try {
-    const response = await axios.delete(`https://g2-ch2.herokuapp.com/api/dependientes/red/${id}`);
+    await axios.delete(`https://g2-ch2.herokuapp.com/api/dependientes/red/${id}`);
     dispatch({ type: DEPENDIENTE_ELIMINADO, payload: id })
   }
   catch (err) {

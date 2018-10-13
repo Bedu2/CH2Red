@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Icon, Button, Preloader, Modal, Card, CardTitle, Col , Row} from 'react-materialize';
+import { Icon, Button, Preloader, Modal, Card, Col , Row} from 'react-materialize';
 import MensajeError from '../MensajeError';
 import FormularioDependienteIncompleto from './FormularioDependienteIncompleto';
 import * as DependientesActions from '../../Actions/DependientesActions';
