@@ -55,7 +55,7 @@ export const agregarDependiente = (nuevoDependiente) => async (dispatch) => {
     window.Materialize.toast('Dependiente agregado.', TIEMPO_TOAST);
   }
   catch (err) {
-    dispatch({ type: ERROR_DEPENDIENTES, payload: err});
+    window.Materialize.toast(`Error "${err.message}" al agregar este dependiente. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
@@ -66,7 +66,7 @@ export const obtenerDependiente = (id) => async (dispatch) => {
     dispatch({ type: DEPENDIENTE_CARGADO, payload: response.data[0] })
   }
   catch (err) {
-    dispatch({ type: ERROR_DEPENDIENTES, payload: err});
+    window.Materialize.toast(`Error "${err.message}" al obtener los datos del dependiente. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
@@ -80,7 +80,7 @@ export const modificarDependiente = (id, dependienteActualizado) => async (dispa
     window.Materialize.toast('Dependiente modificado.', TIEMPO_TOAST);
   }
   catch (err) {
-    dispatch({ type: ERROR_DEPENDIENTES, payload: err});
+    window.Materialize.toast(`Error "${err.message}" al modificar este dependiente. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
@@ -91,7 +91,7 @@ export const eliminarDependiente = (id) => async (dispatch) => {
     dispatch({ type: DEPENDIENTE_ELIMINADO, payload: id })
   }
   catch (err) {
-    dispatch({ type: ERROR_DEPENDIENTES, payload: err })
+    window.Materialize.toast(`Error "${err.message}" al eliminar este dependiente. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 

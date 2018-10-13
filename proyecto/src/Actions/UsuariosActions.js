@@ -38,7 +38,7 @@ export const agregarUsuario = (nuevoUsuario) => async (dispatch) => {
     window.Materialize.toast('Usuario agregado.', TIEMPO_TOAST);
   }
   catch (err) {
-    dispatch({ type: ERROR_USUARIOS, payload: err});
+    window.Materialize.toast(`Error "${err.message}" al agregar este usuario. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
@@ -49,7 +49,7 @@ export const obtenerUsuario = (id) => async (dispatch) => {
     dispatch({ type: USUARIO_CARGADO, payload: response.data[0] })
   }
   catch (err) {
-    dispatch({ type: ERROR_USUARIOS, payload: err});
+    window.Materialize.toast(`Error "${err.message}" al obtener los datos del usuario. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
@@ -63,7 +63,7 @@ export const modificarUsuario = (id, usuarioActualizado) => async (dispatch) => 
     window.Materialize.toast('Usuario modificado.', TIEMPO_TOAST);
   }
   catch (err) {
-    dispatch({ type: ERROR_USUARIOS, payload: err});
+    window.Materialize.toast(`Error "${err.message}" al modificar este usuario. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
@@ -74,7 +74,7 @@ export const eliminarUsuario = (id) => async (dispatch) => {
     dispatch({ type: USUARIO_ELIMINADO, payload: id });
   }
   catch (err) {
-    dispatch({ type: ERROR_USUARIOS, payload: err })
+    window.Materialize.toast(`Error "${err.message}" al eliminar este usuario. Intente más tarde.`, TIEMPO_TOAST);
   }
 };
 
