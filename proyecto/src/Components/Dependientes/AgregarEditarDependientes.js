@@ -30,12 +30,9 @@ class AgregarEditarDependiente extends Component {
   );
 
   crearNuevoDependiente = () => {
-    return {
-      nombre_completo: this.props.nombre_completo,
-      dependencia: this.props.dependencia,
-      edad: this.props.edad,
-      _usuario: this.props._usuario
-  }};
+    const {nombre_completo, dependencia, edad, _usuario} = this.props;
+    return {nombre_completo, dependencia, edad, _usuario};
+  };
 
   cambiarNombreCompleto = (event) => {
     this.props.cambiarNombreCompleto(event.target.value);

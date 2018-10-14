@@ -11,8 +11,8 @@ class Dependientes extends Component {
   componentDidMount() {
     const idUsuario = this.props.match.params.id;
     this.props.asignarIdUsuario(idUsuario);
-    this.props.cargarDependientes(idUsuario);
     this.props.asignarNombreUsuario(idUsuario);
+    this.props.cargarDependientes(idUsuario);
     this.props.activarRedireccion(false);
   }
 
@@ -75,13 +75,12 @@ class Dependientes extends Component {
     return (
       <div>
         <div>
-          <div>
-            <h1>{this.props.nombre_usuario}</h1>
-            <h3>Dependientes
-              <Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
-                <Button floating large className='red lighten-1' waves='light' icon='add' />
-              </Link>
-            </h3>
+          <h1>{this.props.nombre_usuario}</h1>
+          <div className='valign-wrapper'>
+            <h3>Dependientes</h3>
+            <Link to={`${Rutas.RUTA_AGREGAR_DEPENDIENTE}${this.props._usuario}`}>
+              <Button floating large className='red lighten-1' waves='light' icon='add' />
+            </Link>
           </div>
           {
             this.props.cargando ?
